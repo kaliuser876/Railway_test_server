@@ -1,9 +1,3 @@
-# Dependancies
-node_modules
-
-# Production build
-dist
-
 # Logs
 logs
 *.log
@@ -23,9 +17,19 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-.local
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+
+node_modules/
+dist/
+.vite/
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
