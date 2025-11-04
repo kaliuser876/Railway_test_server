@@ -10,7 +10,7 @@ const app = express();
 
 // 🟢 Enable CORS (allows your frontend to call this API)
 app.use(cors({
-  origin: "*", // You can restrict this to your frontend URL later
+  origin: "https://react-frontend-production-6bad.up.railway.app/", // You can restrict this to your frontend URL later
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
 }));
