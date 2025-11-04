@@ -1,16 +1,37 @@
-const express = require("express")
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import User from "./models/User.js";
+
+dotenv.config();
+
 const app = express();
-const cors = require("cors");
-const corsOptions = {
-    orgin: "http://localhost:5173",
-};
-app.use(cors(corsOptions));
+app.use(express.json());
 
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ Connected to MongoDB on Railway"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-app.get("/api", (req,res) => {
-    res.json({fruits: ["apple", "strawberry", "banana"]});
+// Example route
+app.get("/", (req, res) => {
+  res.send("Express + MongoDB on Railway is working!");
 });
 
-app.listen(8080, () =>{
-    console.log("Server started on port 8080");
+app.post("/api/users", async (req, res) => {
+  const { name, email } = req.body;
+  const user = await User.create({ name, email });
+  res.status(201).json(user);
 });
+
+app.get("/api/users", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
